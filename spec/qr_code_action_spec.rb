@@ -17,7 +17,7 @@ describe Fastlane::Actions::QrCodeAction do
           qr_code(contents: '#{test_val}')
         end").runner.execute(:test)
 
-      expect(result).to_not be_empty
+      expect(result).to_not(be_empty)
 
       expect(Pathname.new(result['QR_CODE_PNG_PATH'])).to exist
       expect(Pathname.new(result['QR_CODE_PNG_PATH'])).to be_file
