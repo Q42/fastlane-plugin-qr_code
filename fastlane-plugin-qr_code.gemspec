@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'mathijsb@q42.nl'
 
   spec.summary       = 'Generates QR codes that you may use in the rest of your workflow.'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-qr_code"
+  spec.homepage      = "https://github.com/Q42/fastlane-plugin-qr_code"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)

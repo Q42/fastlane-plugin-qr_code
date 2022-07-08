@@ -1,3 +1,7 @@
+require 'fileutils'
+
 lane :test do
-  qr_code
+  code = qr_code(contents: 'https://q42.com/')
+  puts code['QR_CODE_TEXT']
+  FileUtils.cp(code['QR_CODE_PNG_PATH'], './qr_code.png')
 end
