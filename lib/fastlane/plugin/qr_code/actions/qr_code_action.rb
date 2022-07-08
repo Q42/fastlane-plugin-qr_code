@@ -18,7 +18,7 @@ module Fastlane
 
         qr_code = RQRCode::QRCode.new(qr_code_contents)
         qr_code_text = qr_code.as_ansi
-        qr_code_png = qr_code.as_png
+        qr_code_png = qr_code.as_png(size: 240)
 
         temp_file = Tempfile.new('qrcode')
         temp_file.write(qr_code_png.to_s)
