@@ -1,4 +1,4 @@
-# qr_code plugin
+# Fastlane qr_code plugin
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-qr_code)
 
@@ -12,15 +12,47 @@ fastlane add_plugin qr_code
 
 ## About qr_code
 
-Generates QR codes that you may use in the rest of your workflow.
+This plugin generates QR codes that you may use in the rest of your workflow.
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+You can use a PNG image of the QR code, or an ANSI text representation that you can print to a console.
 
 ## Example
 
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
+Example usage of this plugin:
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
+```ruby
+lane :test do
+  code = qr_code(contents: 'https://q42.com/')
+  
+  # Print a ANSI text-representation of the QR code to the console
+  puts code['QR_CODE_TEXT']
+
+  # Store the QR code somewhere a PNG file to use it later on
+  FileUtils.cp(code['QR_CODE_PNG_PATH'], './qr_code.png')
+
+  # Upload QR code to S3...
+  aws_s3(
+    access_key: ENV["S3_ACCESS_KEY"],
+    secret_access_key: ENV["S3_SECRET_ACCESS_KEY"],
+    bucket: ENV["S3_BUCKET"],
+    region: ENV["S3_REGION"],
+    files: [
+      code['QR_CODE_PNG_PATH']
+    ],
+    upload_metadata: false
+  )
+  qr_code_image_url = lane_context[SharedValues::S3_FILES_OUTPUT_PATHS][0]
+
+  # ...and post it to Slack!
+  slack(
+    message: "Build succeeded! Scan the code to install it on your device.",
+    slack_url: ENV["SLACK_WEB_HOOK_URL"],
+    attachment_properties: {
+      image_url: qr_code_image_url,
+    }
+  )
+end
+```
 
 ## Run tests for this plugin
 
