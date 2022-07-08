@@ -1,7 +1,5 @@
 source('https://rubygems.org')
 
-gem 'rqrcode', "~> 2.0"
-
 gemspec
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
