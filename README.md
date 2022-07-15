@@ -12,9 +12,13 @@ fastlane add_plugin qr_code
 
 ## About qr_code
 
-This plugin generates QR codes that you may use in the rest of your workflow.
+You can use this plugin to generate QR codes that you may use in the rest of your Fastlane workflow. 
 
-You can use a PNG image of the QR code, or an ANSI text representation that you can print to a console.
+This plugin was created because I needed a Fastlane equivalent of the [Bitrise step 'Create install page QR code'](https://www.bitrise.io/integrations/steps/create-install-page-qr-code).
+
+The main use case is to generate a QR code to your app's install page, and then automatically post this QR code to Slack.
+
+The plugin outputs a PNG image of the QR code as well as an ANSI text representation that can be printed to a console.
 
 ## Example
 
