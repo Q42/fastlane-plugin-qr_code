@@ -12,6 +12,9 @@ module Fastlane
     end
 
     class QrCodeAction < Action
+      # Hold references to the temporary files, so that they aren't garbage collected (and deleted) before the Fastlane workflow is finished.
+      @@temp_files = []
+
       def self.run(params)
         qr_code_contents = params[:contents].to_s
         UI.user_error!("No QR code contents given, pass using `contents: 'http://example.com/123'`") unless qr_code_contents.length > 0
@@ -24,7 +27,7 @@ module Fastlane
         temp_file.write(qr_code_png.to_s)
         qr_code_png_path = temp_file.path
         temp_file.close
-        IO.binwrite(qr_code_png_path, qr_code_png.to_s)
+        @@temp_files.append(temp_file)
 
         # Setting action and environment variables
         Actions.lane_context[SharedValues::QR_CODE_PNG_PATH] = qr_code_png_path

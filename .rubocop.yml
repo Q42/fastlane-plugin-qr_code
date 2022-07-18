@@ -5,6 +5,7 @@ require:
 AllCops:
   TargetRubyVersion: 2.6
   NewCops: enable
+  SuggestExtensions: false
   Include:
   - "**/*.rb"
   - "**/*file"
@@ -28,6 +29,8 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 Style/ClassCheck:
   EnforcedStyle: kind_of?
+Style/ClassVars:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/SafeNavigation:
